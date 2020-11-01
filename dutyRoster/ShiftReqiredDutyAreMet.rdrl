@@ -1,0 +1,11 @@
+package dutyrostering.dutyrostering;
+
+import java.lang.Number;
+
+rule "ShiftReqiredDutyAreMet"
+	dialect "mvel"
+	when
+		ShiftAssignment( employee != null , $requiredDuty : shift.requiredDuty, employee.duty != ( $requiredDuty ) )
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1);
+end

@@ -1,0 +1,12 @@
+package dutyrostering.dutyrostering;
+
+import java.lang.Number;
+
+rule "DayOffRequestRule"
+	dialect "mvel"
+	when
+		$dayOffRequest : DayOffRequest( )
+		ShiftAssignment( employee == $dayOffRequest.employee , shift.timeslot == $dayOffRequest.offShift )
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -30);
+end
